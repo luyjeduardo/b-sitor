@@ -1,0 +1,10 @@
+#log-in-form{
+    padding-top: 4%;
+    padding-bottom: 4%;
+    padding-right: 4%;
+    padding-left: 4%;
+    max-width: 400px;
+	margin: 7% auto;
+    background-color: white;
+    box-shadow: 2px 2px 5px #999;
+}

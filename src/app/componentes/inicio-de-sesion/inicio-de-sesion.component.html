@@ -1,0 +1,27 @@
+<div class="container" id="log-in-form">
+    <div class="heading">
+        <h1>Entrar</h1>
+    </div>
+    <hr>
+    <hr>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <input type="email" class="form-control" name="correo" id="correo" 
+                    placeholder="* Ingrese su email." [(ngModel)]="Correo">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <input type="password" class="form-control" name="password" id="password" 
+                    placeholder="* Ingrese su contraseña." [(ngModel)]="Password">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group form-group-btn">
+                <button class="btn btn-primary" (click)="ValidarParaIniciarSesion()">Iniciar sesión.</button>
+            </div>
+        </div>
+    </div>
+</div>

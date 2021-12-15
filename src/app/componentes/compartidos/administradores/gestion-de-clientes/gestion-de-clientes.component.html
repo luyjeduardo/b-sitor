@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card card-stats">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <div class="numbers">
+                            <p class="card-category">Gestionar</p>
+                            <p class="card-title">Clientes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                    <i class="fa fa-gear"></i>
+                    <a id="agregacion" class="path regionseleccionada" (click)="Agregar()">Agregación</a>,
+                    <a id="visualizacion" class="path" (click)="Visualizar()">visualización</a> y
+                    <a id="actualizacion" class="path" (click)="Actualizar()">actualización</a>
+                </div>
+            </div>       
+            <app-registrar></app-registrar>
+            <app-modificar></app-modificar> 
+            <app-ver></app-ver>
+        </div>
+    </div>
+</div>

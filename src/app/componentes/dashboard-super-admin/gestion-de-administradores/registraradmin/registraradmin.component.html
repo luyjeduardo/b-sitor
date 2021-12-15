@@ -1,0 +1,67 @@
+<div class="container" id="registrar">
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <select class="form-select" aria-label="Default select example"
+                            id="optiontipodeidentificacion">
+                            <option value="" selected>* Tipo de identificación</option>
+                            <option value="cedula de ciudadanía">Cedula de ciudadanía</option>
+                            <option value="cedula extranjera">Cedula extranjera</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="number" class="form-control" id="identificacion"
+                            placeholder="* Ingrese # de doc."
+                            (keypress)="ValidarCaracteresNumericosYMaxlength('identificacion', $event)">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="nombres"
+                            placeholder="* Ingrese sus nombres."
+                            (keypress)="ValidarCaracteresAlfabeticosYMaxlength('nombres', $event)">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="apellidos"
+                            placeholder="* Ingrese sus apellidos."
+                            (keypress)="ValidarCaracteresAlfabeticosYMaxlength('apellidos', $event)">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="correo"
+                            placeholder="* Ingrese el correo electrónico."
+                            (keypress)="ValidarCaracteresAlfanumericosYMaxlength('correo', $event)">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="password"
+                            placeholder="* Ingrese una contraseña."
+                            (keypress)="ValidarMaxlength('password', $event)">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="password2"
+                            placeholder="* Confirmar la contraseña."
+                            (keypress)="ValidarMaxlength('password2', $event)">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" (click)="ValidarParaRegistrar()">
+                    Registrar información</button>
+            </div>
+        </div>
+    </div>
+</div>

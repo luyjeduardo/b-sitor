@@ -1,0 +1,124 @@
+<div class="container" id="modificar" hidden>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Busqueda por identificación: </label>
+                        <input type="number" class="form-control" id="identificacion"
+                            placeholder="Ingrese el número de documento" style="width: 40%;"
+                            (keypress)="ValidarCaracteresNumericosYMaxlength('identificacion', $event)">
+                    </div>
+                </div>
+                <div class="col-md-6" aria-readonly="true">
+                    <div class="form-group">
+                        <select class="form-select" aria-label="Default select example"
+                            id="optiontipodeusuario">
+                            <option value="" selected>* Modificar tipo de usuario</option>
+                            <option value="funcionario">Funcionario</option>
+                            <option value="contratista">Contratista</option>
+                            <option value="visitante">Visitante</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <select class="form-select" aria-label="Default select example"
+                            id="optiontipodeidentificacion">
+                            <option value="" selected>* Modificar tipo de identificación</option>
+                            <option value="cedula de ciudadanía">Cedula de ciudadanía</option>
+                            <option value="cedula extranjera">Cedula extranjera</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="number" class="form-control" id="identificacion"
+                            placeholder="* Esperando # de doc."
+                            (keypress)="ValidarCaracteresNumericosYMaxlength('identificacion', $event)">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="nombres"
+                            placeholder="* Esperando sus nombres."
+                            (keypress)="ValidarCaracteresAlfabeticosYMaxlength('nombres', $event)">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="apellidos"
+                            placeholder="* Esperando sus apellidos."
+                            (keypress)="ValidarCaracteresAlfabeticosYMaxlength('apellidos', $event)">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="correo"
+                            placeholder="* Esperando el correo electrónico."
+                            (keypress)="ValidarCaracteresAlfanumericosYMaxlength('correo', $event)">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="password"
+                            placeholder="* Ingrese una contraseña." readonly
+                            (keypress)="ValidarMaxlength('password', $event)">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="password2"
+                            placeholder="* Confirmar la contraseña." readonly
+                            (keypress)="ValidarMaxlength('password2', $event)">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <select class="form-select" aria-label="Default select example" id="optionempresa">
+                            <option value="" selected>* Sel. la empresa</option>
+                            <option value="...">...</option>
+                            <option value="...">...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <select class="form-select" aria-label="Default select example" id="optionarea">
+                            <option value="" selected>* Sel. el area</option>
+                            <option value="...">...</option>
+                            <option value="...">...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="destino"
+                            placeholder="* Esperando el destino."
+                            (keypress)="ValidarCaracteresAlfanumericosYMaxlength('destino', $event)">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Modificar fecha de ingreso: </label>
+                        <input type="date" class="form-control" title="Fecha de entrada"
+                            id="fechadeentrada">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Modificar fecha de salida: </label>
+                        <input type="date" class="form-control" title="Fecha de salida" id="fechadesalida">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <button type="submit" class="btn btn-warning" (click)="ValidarParaRegistrar()">
+                    Modificar información</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card card-stats">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <div class="numbers">
+                            <p class="card-category">Gestionar</p>
+                            <p class="card-title">Areas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                    <i class="fa fa-gear"></i>
+                    <a class="path regionseleccionada">Gestionamiento</a>
+                </div>
+            </div>
+            <div class="container" id="register-form">
+                <hr>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="nombres"
+                                        placeholder="* Nombre del area."
+                                        (keypress)="ValidarCaracteresAlfabeticosYMaxlength('nombres', $event)">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <select class="form-select" aria-label="Default select example" id="optionempresa">
+                                        <option value="" selected>* Sel. la empresa</option>
+                                        <option value="...">...</option>
+                                        <option value="...">...</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary" (click)="ValidarParaRegistrar()">
+                                        Registrar información</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class=" text-primary">
+                                            <th>Nombre de área</th>
+                                            <th>Nombre de empresa</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Area 51</td>
+                                                <td>Fuentes Asociados</td>
+                                                <td>
+                                                    <a style="color: rgb(228, 169, 21);" title="Modificar">
+                                                        <i class="nc-icon nc-ruler-pencil"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Finanzas</td>
+                                                <td>Mar-Autos</td>
+                                                <td>
+                                                    <a style="color: rgb(228, 169, 21);" title="Modificar">
+                                                        <i class="nc-icon nc-ruler-pencil"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
