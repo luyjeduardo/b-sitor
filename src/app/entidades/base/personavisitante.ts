@@ -30,7 +30,7 @@ export abstract class Personavisitante extends Persona {
     }
 
     set Pathfoto(val : string) {
-        if(val.length >= 20 && val.length <= 100){
+        if(val.length >= 20){
             this._Pathfoto = val;
         } else {
             this._Pathfoto = "";

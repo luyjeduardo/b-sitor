@@ -19,10 +19,10 @@ export class RegistrosGeneralesComponent implements OnInit {
   private Personavisitante: Personavisitante = Visitante.ObtenerInstancia();
   private Validaciones: Validaciones = Validaciones.ObtenerInstancia();
   private Video!: HTMLVideoElement;
+  private Canvas!: HTMLCanvasElement;
   private Mediastream!: MediaStream;
-  private Foco!: string;
-
-  private video!: HTMLVideoElement;
+  private Foco!: any;
+  private Pathfoto: string = "";
 
   constructor() { 
     $(() => {
@@ -89,10 +89,7 @@ export class RegistrosGeneralesComponent implements OnInit {
 
   private DetectarMarco = (video: HTMLVideoElement, modelo: any) => {
     modelo.detect(video).then((prediccion : any) => {
-      //alert(prediccion.length);
-      // this.Foco = prediccion[0]['class'];
-      // console.log(prediccion[0]['class']);
-      // console.log(prediccion[0]['score']);
+      this.Foco = prediccion;
       this.RenderizarPrediccion(prediccion);
       requestAnimationFrame(() => {
         this.DetectarMarco(video, modelo);
@@ -101,10 +98,10 @@ export class RegistrosGeneralesComponent implements OnInit {
   }
 
   RenderizarPrediccion = (predicciones : any) => {
-    const canvas : any = <HTMLCanvasElement> document.getElementById ("canvas");  
-    const ctx : any = canvas.getContext("2d");
-    canvas.width  = 300;
-    canvas.height = 300;
+    this.Canvas = <HTMLCanvasElement> document.getElementById ("canvas");  
+    const ctx : any = this.Canvas.getContext("2d");
+    this.Canvas.width  = 300;
+    this.Canvas.height = 300;
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     const font = "16px sans-serif";
     ctx.font = font;
@@ -132,11 +129,27 @@ export class RegistrosGeneralesComponent implements OnInit {
   };
 
   public ValidarParaTomarFoto() {
-    if (this.Foco === "person") {
-      alert("bien... eres una persona.");
-    } else {
-      alert("no eres una persona...");
+    if (this.Foco.length === 0) {
+      this.MensajeDeWarning("No se encontró nadie en el foco de la cámara.");
+    } else if (this.Foco.length > 1) {
+      this.MensajeDeWarning("Se encontró más de un objeto en el foco de la cámara.");
+    } else if (this.Foco.length === 1) {
+      if (this.Foco[0]['class'] === "person") {
+        this.TomarLaFoto();
+      } else {
+        this.MensajeDeWarning("Hay un objeto en el foco de la cámara, pero no es una persona.");
+      }   
     }
+  }
+
+  private TomarLaFoto(){
+    this.Video.pause();
+    let contexto: any = this.Canvas.getContext("2d");
+    this.Canvas.width = this.Video.videoWidth;
+    this.Canvas.height = this.Video.videoHeight;
+    contexto.drawImage(this.Video, 0, 0, this.Canvas.width, this.Canvas.height);
+    this.Pathfoto = this.Canvas.toDataURL("image/jpeg");
+    console.log(this.Pathfoto);
   }
 
   public ValidarParaRegistrar(){
@@ -144,7 +157,7 @@ export class RegistrosGeneralesComponent implements OnInit {
       if (this.ValidarPropiedades()) {
         if (this.ValidarParseoDeContrasenias()) {
           // if (this.ValidarFechaMayorYMenor()) {
-          //   //this.RegistrarInformacion();
+            this.RegistrarInformacion();
           // } else {
 
           // }
@@ -161,6 +174,9 @@ export class RegistrosGeneralesComponent implements OnInit {
 
   private RegistrarInformacion(){
     //Se llama al servicio de registro...
+    //this.Video.play();
+    //this.LimpiarCampos();
+    alert("Todo bajo control.");
   }
 
   private ValidarContenido() : boolean{
@@ -194,11 +210,10 @@ export class RegistrosGeneralesComponent implements OnInit {
   private ValidarContenidoEnPersonasVisitantes() : boolean {
     if (this.ValidarContenidoEnPersonas()) {
       let estado = "inactivo";
-      let pathfoto = "xyz";
       let destino = $("#destino").val();
       let fechadeentrada = $("#fechadeentrada").val();
       let fechadesalida = $("#fechadesalida").val();
-      if (estado !== "" && pathfoto !== "" && destino !== "" && fechadeentrada !== "" && fechadesalida !== "") {
+      if (estado !== "" && destino !== "" && fechadeentrada !== "" && fechadesalida !== "") {
         return true;
       } else {
         return false;
@@ -265,7 +280,7 @@ export class RegistrosGeneralesComponent implements OnInit {
     this.Personavisitante.Password = (String)($("#password").val());
     this.Personavisitante.Password2 = (String)($("#password2").val());
     this.Personavisitante.Estado = "inactivo";
-    this.Personavisitante.Pathfoto = "";
+    this.Personavisitante.Pathfoto = this.Pathfoto;
     this.Personavisitante.Destino = (String)($("#destino").val());
     let fe = (String)($("#fechadeentrada").val()); 
     let fs = (String)($("#fechadesalida").val());
@@ -294,6 +309,10 @@ export class RegistrosGeneralesComponent implements OnInit {
     if (this.Personavisitante.Password2 === "") { 
       let msj = "La confirmación de contraseña debe tener como mínimo 8 caracteres.";
       this.MensajeDeWarning(msj); return false 
+    }
+    if (this.Personavisitante.Pathfoto === ""){
+      let msj = "Debe tomarse la foto, por favor.";
+      this.MensajeDeWarning(msj); return false
     }
     if (this.Personavisitante.Destino === "") { 
       let msj = "El destino debe tener como mínimo 2 caracteres.";

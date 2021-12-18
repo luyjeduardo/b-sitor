@@ -27,9 +27,6 @@ import { GestionDeAdministradoresComponent } from './componentes/dashboard-super
 import { RegistraradminComponent } from './componentes/dashboard-super-admin/gestion-de-administradores/registraradmin/registraradmin.component';
 import { ModificaradminComponent } from './componentes/dashboard-super-admin/gestion-de-administradores/modificaradmin/modificaradmin.component';
 import { VeradminComponent } from './componentes/dashboard-super-admin/gestion-de-administradores/veradmin/veradmin.component';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../environments/environment';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -61,9 +58,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore())
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
