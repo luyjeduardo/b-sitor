@@ -7,6 +7,7 @@ import { Visitante } from 'src/app/entidades/clases/visitante';
 import { Validaciones } from 'src/app/validaciones/validaciones';
 import { Persona } from 'src/app/entidades/base/persona';
 import { Personavisitante } from 'src/app/entidades/base/personavisitante';
+import { VisitanteService } from 'src/app/servicios/visitante.service';
 
 @Component({
   selector: 'app-registros-generales',
@@ -24,7 +25,7 @@ export class RegistrosGeneralesComponent implements OnInit {
   private Foco!: any;
   private Pathfoto: string = "";
 
-  constructor() { 
+  constructor(private serviciovisitantes: VisitanteService) { 
     $(() => {
       this.PrevenirPaste();
     });
@@ -149,18 +150,14 @@ export class RegistrosGeneralesComponent implements OnInit {
     this.Canvas.height = this.Video.videoHeight;
     contexto.drawImage(this.Video, 0, 0, this.Canvas.width, this.Canvas.height);
     this.Pathfoto = this.Canvas.toDataURL("image/jpeg");
-    console.log(this.Pathfoto);
+    //console.log(this.Pathfoto);
   }
 
   public ValidarParaRegistrar(){
     if (this.ValidarContenido()) {
       if (this.ValidarPropiedades()) {
         if (this.ValidarParseoDeContrasenias()) {
-          // if (this.ValidarFechaMayorYMenor()) {
-            this.RegistrarInformacion();
-          // } else {
-
-          // }
+          this.RegistrarInformacion();
         } else {
           let msj = "Verificar las contraseñas porque no coinciden.";
           this.MensajeDeWarning(msj);
@@ -173,10 +170,32 @@ export class RegistrosGeneralesComponent implements OnInit {
   }
 
   private RegistrarInformacion(){
-    //Se llama al servicio de registro...
-    //this.Video.play();
-    //this.LimpiarCampos();
-    alert("Todo bajo control.");
+    let perfil = $("#optiontipodeusuario").val();
+    if (perfil === "super administrador" || perfil === "administrador") {
+      this.RegistrarAdministrador();
+    } else if (perfil === "funcionario" || perfil === "contratista" || perfil === "visitante") {
+      if (this.ValidarFechaMayorYMenor()) {
+        this.RegistrarCliente();
+      } else {
+        let msj = "La fecha de salida debe ser post a la de entrada.";
+        this.MensajeDeWarning(msj);
+      }
+    } 
+  }
+
+  private RegistrarAdministrador(){
+
+  }
+
+  private RegistrarCliente(){
+    this.serviciovisitantes.RegistrarInformacion(this.Personavisitante);
+    //   .toPromise()
+    //   .then(
+    //     (response: any) => {
+    //       console.log(response);
+    //       this.Video.play();
+    //     }
+    // );
   }
 
   private ValidarContenido() : boolean{
@@ -333,28 +352,29 @@ export class RegistrosGeneralesComponent implements OnInit {
   }
 
   private ValidarFechaMayorYMenor() : boolean {
-    let perfil = $("#optiontipodeusuario").val();
-    if (perfil === "super administrador" || perfil === "administrador") {
-      return true;
-    } else if (perfil === "funcionario" || perfil === "contratista" || perfil === "visitante") {
-      let ae = this.Personavisitante.Fechadeentrada.getUTCFullYear().toLocaleString();// .getUTCFullYear();
-      let me = this.Personavisitante.Fechadeentrada.getUTCMonth().toLocaleString();
-      let de = this.Personavisitante.Fechadeentrada.getUTCDay().toLocaleString();
+    // let perfil = $("#optiontipodeusuario").val();
+    // if (perfil === "super administrador" || perfil === "administrador") {
+    //   return true;
+    // } else if (perfil === "funcionario" || perfil === "contratista" || perfil === "visitante") {
+    //   let ae = this.Personavisitante.Fechadeentrada.getUTCFullYear().toLocaleString();// .getUTCFullYear();
+    //   let me = this.Personavisitante.Fechadeentrada.getUTCMonth().toLocaleString();
+    //   let de = this.Personavisitante.Fechadeentrada.getUTCDay().toLocaleString();
       // let as = this.Personavisitante.Fechadesalida.getUTCFullYear();
       // let ms = this.Personavisitante.Fechadesalida.getUTCMonth();
       // let ds = this.Personavisitante.Fechadesalida.getUTCDay();
       // alert("Entrada : " + de + " " + me + " " + ae);
       // alert("Salida  : " + ds + " " + ms + " " + as);
-      if (this.Personavisitante.Fechadesalida > this.Personavisitante.Fechadeentrada) {
-        alert("La fecha de salida está después de la de entrada");
-        return true;
-      } else {
-        alert("La fecha de salida es antes de la fecha de entrada");
-        return false;
-      }
-    } else {
-      return false;
-    }
+    //   if (this.Personavisitante.Fechadesalida > this.Personavisitante.Fechadeentrada) {
+    //     alert("La fecha de salida está después de la de entrada");
+    //     return true;
+    //   } else {
+    //     alert("La fecha de salida es antes de la fecha de entrada");
+    //     return false;
+    //   }
+    // } else {
+    //   return false;
+    // }
+    return true;
   }
 
   private PrevenirPaste(){
