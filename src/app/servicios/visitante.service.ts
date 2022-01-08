@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable } from 'rxjs';
 import { Personavisitante } from '../entidades/base/personavisitante';
+import { Servidorapirest } from '../entidades/clases/servidor';
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +11,27 @@ import { Personavisitante } from '../entidades/base/personavisitante';
 export class VisitanteService {
 
   private Filepath!: string;
-  private Geturlimg!: Observable<string>;
+  private Singletonservidor: Servidorapirest = Servidorapirest.ObtenerInstancia();
 
   constructor(private storage: AngularFireStorage,
               private http: HttpClient) { 
   }
 
-  public async RegistrarInformacion(visitante: Personavisitante){
+  public async RegistrarInformacion(visitante: Personavisitante) : Promise<Observable<Object>> {
     await this.SubirFotoYRegistrar(visitante); 
-    console.log(visitante); 
-    //return this.http.post(`Servidor API`, JSON.stringify(visitante)); 
+    return this.http.post(`${this.Singletonservidor.Urlapirestfull}usuarios`, visitante); 
+  }
+
+  public ObtenerTodos() : Observable<Personavisitante[]>{
+    return this.http.get<Personavisitante[]>(`${this.Singletonservidor.Urlapirestfull}usuarios`); 
+  }
+
+  public ObtenerUnoByNumeroDeDocumento(numerodedocumento: number) : Observable<Personavisitante>{
+    return this.http.get<Personavisitante>(`${this.Singletonservidor.Urlapirestfull}usuarios/` + numerodedocumento); 
+  }
+
+  public ActualizarUno(visitante: Personavisitante) : Observable<Object>{
+    return this.http.put(`${this.Singletonservidor.Urlapirestfull}usuarios/`, visitante); 
   }
 
   private async SubirFotoYRegistrar(visitante: Personavisitante){

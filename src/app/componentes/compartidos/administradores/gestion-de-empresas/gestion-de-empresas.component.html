@@ -25,23 +25,23 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input type="number" class="form-control" id="identificacion"
+                                    <input type="number" class="form-control" id="nit"
                                         placeholder="* Nit de la empresa."
-                                        (keypress)="ValidarCaracteresNumericosYMaxlength('identificacion', $event)">
+                                        (keypress)="ValidarCaracteresNumericosYMaxLength('nit', 10, $event)">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="nombres"
+                                    <input type="text" class="form-control" id="nombre"
                                         placeholder="* Nombre de la empresa."
-                                        (keypress)="ValidarCaracteresAlfabeticosYMaxlength('nombres', $event)">
+                                        (keypress)="ValidarCaracteresAlfabeticosYMaxLength('nombre', 50, $event)">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="nombres"
-                                        placeholder="* Nombre de la empresa."
-                                        (keypress)="ValidarCaracteresAlfabeticosYMaxlength('nombres', $event)">
+                                    <input type="text" class="form-control" id="direccion"
+                                        placeholder="* Direccion de la empresa."
+                                        (keypress)="ValidarMaxLength('direccion', 50, $event)">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -63,23 +63,13 @@
                                             <th>Dirección</th>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>0992344212</td>
-                                                <td>Fuentes Asociados</td>
-                                                <td>Calle 15 con carrera 10 esquina</td>
+                                            <tr *ngFor="let empresa of Empresas">
+                                                <td>{{empresa.Nit_}}</td>
+                                                <td>{{empresa.Nombre_}}</td>
+                                                <td>{{empresa.Direccion_}}</td>
                                                 <td>
                                                     <a style="color: rgb(228, 169, 21);" title="Modificar">
-                                                        <i class="nc-icon nc-ruler-pencil"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>3210967102</td>
-                                                <td>Mar-Autos</td>
-                                                <td>Carrera 5 número 10-12</td>
-                                                <td>
-                                                    <a style="color: rgb(228, 169, 21);" title="Modificar">
-                                                        <i class="nc-icon nc-ruler-pencil"></i>
+                                                        <i class="nc-icon nc-ruler-pencil" (click)="AbrirModalModificarEmpresa(empresa, contenido)"></i>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -91,10 +81,46 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="container">
-                <hr>
-                
-            </div> -->
         </div>
     </div>
 </div>
+<ng-template #contenido let-modal>
+    <div class="modal-header">
+        <h3 class="modal-title text-center">INFORMACIÓN DE EMPRESA.</h3>
+        <button class="close btn btn-light" aria-label="close" type="button" (click)="modalngbootstrap.dismissAll()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <form>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <input type="number" class="form-control" id="Nit_mod" aria-describedby="Nit_mod"
+                            name="Nit_mod" [(ngModel)]="Nit_mod" 
+                            (keypress)="ValidarCaracteresNumericosYMaxLength('Nit_mod', 10, $event)">
+                            <small id="Nit_mod" class="form-text text-muted">Nuevo nit de la empresa</small>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <input type="text" class="form-control" id="Nombre_mod" aria-describedby="Nombre_mod"
+                            name="Nombre_mod" [(ngModel)]="Nombre_mod" 
+                            (keypress)="ValidarCaracteresAlfabeticosYMaxLength('Nombre_mod', 50, $event)">
+                            <small id="Nombre_mod" class="form-text text-muted">Nuevo nombre de la empresa</small>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <input type="text" class="form-control" id="Direccion_mod" aria-describedby="Direccion_mod"
+                            name="Direccion_mod" [(ngModel)]="Direccion_mod" 
+                            (keypress)="ValidarMaxLength('Direccion_mod', 50, $event)">
+                            <small id="Direccion_mod" class="form-text text-muted">Nueva dirección de la empresa</small>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 3%;">
+                    <div class="form-group col-md-12">
+                        <button id="modificar" type="button" class="btn btn-success button-block" (click)="ValidarParaModificar()">Modificar información</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer"></div>
+</ng-template>

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Personavisitante } from 'src/app/entidades/base/personavisitante';
+import { Contratista } from 'src/app/entidades/clases/contratista';
+import { Visitante } from 'src/app/entidades/clases/visitante';
+import { Funcionario } from 'src/app/entidades/clases/funcionario';
 
 @Component({
   selector: 'app-registrar',
@@ -6,6 +10,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./registrar.component.css']
 })
 export class RegistrarComponent implements OnInit {
+
+  private Personavisitante: Personavisitante = Visitante.ObtenerInstancia();
+  private Personafuncionario: Personavisitante = Funcionario.ObtenerInstancia();
+  private Personacontratista: Personavisitante = Contratista.ObtenerInstancia();
 
   constructor() { }
 
@@ -29,7 +37,7 @@ export class RegistrarComponent implements OnInit {
   }
 
   public ValidarParaRegistrar(){
-    
+    console.log(this.Personavisitante);
   }
 
 }

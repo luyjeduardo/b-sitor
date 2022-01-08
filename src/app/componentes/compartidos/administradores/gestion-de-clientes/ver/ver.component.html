@@ -11,34 +11,19 @@
                         <th>Perfil</th>
                         <th>Empresa</th>
                         <th>Area</th>
-                        <th>Destino</th>
                         <th>Estado</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1067725290</td>
-                            <td>Luis</td>
-                            <td>Villarreal</td>
-                            <td>Visitante</td>
-                            <td>Developers</td>
-                            <td>Sistemas</td>
-                            <td>Desconocido</td>
+                        <tr *ngFor="let visitante of Visitantes">
+                            <td>{{visitante.Identificacion}}</td>
+                            <td>{{visitante.Nombres}}</td>
+                            <td>{{visitante.Apellidos}}</td>
+                            <td>{{visitante.Perfil}}</td>
+                            <td>Empresa</td>
+                            <td>Area</td>
+                            <!-- <td>{{visitante.Empresa}}</td>
+                            <td>{{visitante.Area}}</td> -->
                             <td style="color: forestgreen;"><strong>Activo</strong></td>
-                            <td>
-                                <a title="Ver todo" style="color: rgb(228, 169, 21);">
-                                    <i class="nc-icon nc-single-copy-04"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="color: silver;">1023210967</td>
-                            <td style="color: silver;">Andres</td>
-                            <td style="color: silver;">Perez</td>
-                            <td style="color: silver;">Contratista</td>
-                            <td style="color: silver;">Corr. bolsas</td>
-                            <td style="color: silver;">Finanzas</td>
-                            <td style="color: silver;">Desconocido</td>
-                            <td style="color: silver;">Registrado</td>
                             <td>
                                 <a title="Ver todo" style="color: rgb(228, 169, 21);">
                                     <i class="nc-icon nc-single-copy-04"></i>

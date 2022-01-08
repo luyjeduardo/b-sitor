@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -63,6 +64,7 @@ import { VeradminComponent } from './componentes/dashboard-super-admin/gestion-d
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    NgbModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [],

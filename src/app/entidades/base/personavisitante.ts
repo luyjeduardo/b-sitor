@@ -1,11 +1,16 @@
+import { Area } from "../clases/area";
+import { Empresa } from "../clases/empresa";
 import { Persona } from "./persona";
 
 export abstract class Personavisitante extends Persona {
     private _Estado! : string;
-    private _Destino! : string;
+    private _Idempresa! : number;
+    private _Idarea! : number;
     private _Pathfoto! : string;
     private _Fechadeentrada! : Date;
     private _Fechadesalida! : Date;
+    private _Empresa! : Empresa;
+    private _Area! : Area;
 
     set Estado(val : string) {
         if(val === "activo" || val === "inactivo"){
@@ -18,15 +23,18 @@ export abstract class Personavisitante extends Persona {
         return this._Estado;
     }
 
-    set Destino(val : string) {
-        if(val.length > 1 && val.length <= 30){
-            this._Destino = val;
-        } else {
-            this._Destino = "";
-        }
+    set Idempresa(val : number) {
+        this._Idempresa = val;
     }
-    get Destino() : string {
-        return this._Destino;
+    get Idmpresa() : number {
+        return this._Idempresa;
+    }
+
+    set Idarea(val : number) {
+        this._Idarea = val;
+    }
+    get Idarea() : number {
+        return this._Idarea;
     }
 
     set Pathfoto(val : string) {
@@ -52,5 +60,19 @@ export abstract class Personavisitante extends Persona {
     }
     get Fechadesalida() : Date {
         return this._Fechadesalida;
+    }
+
+    set Empresa(val : Empresa) {
+        this._Empresa = val;
+    }
+    get Empresa() : Empresa {
+        return this._Empresa;
+    }
+
+    set Area(val : Area) {
+        this._Area = val;
+    }
+    get Area() : Area {
+        return this._Area;
     }
 }

@@ -295,12 +295,13 @@ export class RegistrosGeneralesComponent implements OnInit {
     this.Personavisitante.Nombres = (String)($("#nombres").val());
     this.Personavisitante.Apellidos = (String)($("#apellidos").val());
     this.Personavisitante.Perfil = (String)($("#optiontipodeusuario").val());
+    this.Personavisitante.Idempresa = (Number)($("#optionempresa").val());
+    this.Personavisitante.Idarea = (Number)($("#optionarea").val());
     this.Personavisitante.Correo = (String)($("#correo").val());
     this.Personavisitante.Password = (String)($("#password").val());
     this.Personavisitante.Password2 = (String)($("#password2").val());
     this.Personavisitante.Estado = "inactivo";
     this.Personavisitante.Pathfoto = this.Pathfoto;
-    this.Personavisitante.Destino = (String)($("#destino").val());
     let fe = (String)($("#fechadeentrada").val()); 
     let fs = (String)($("#fechadesalida").val());
     this.Personavisitante.Fechadeentrada = new Date(fe);
@@ -332,10 +333,6 @@ export class RegistrosGeneralesComponent implements OnInit {
     if (this.Personavisitante.Pathfoto === ""){
       let msj = "Debe tomarse la foto, por favor.";
       this.MensajeDeWarning(msj); return false
-    }
-    if (this.Personavisitante.Destino === "") { 
-      let msj = "El destino debe tener como mínimo 2 caracteres.";
-      this.MensajeDeWarning(msj); return false 
     }
     return true;
   }

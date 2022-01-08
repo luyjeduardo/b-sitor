@@ -25,17 +25,18 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="nombres"
+                                    <input type="text" class="form-control" id="nombre"
                                         placeholder="* Nombre del area."
-                                        (keypress)="ValidarCaracteresAlfabeticosYMaxlength('nombres', $event)">
+                                        (keypress)="ValidarCaracteresAlfabeticosYMaxlength('nombre', $event)">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <select class="form-select" aria-label="Default select example" id="optionempresa">
                                         <option value="" selected>* Sel. la empresa</option>
-                                        <option value="...">...</option>
-                                        <option value="...">...</option>
+                                        <option *ngFor="let empresa of Empresas"
+                                            value="{{empresa.Idempresa_}}">{{empresa.Nombre_}}
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -57,21 +58,12 @@
                                             <th>Nombre de empresa</th>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Area 51</td>
-                                                <td>Fuentes Asociados</td>
+                                            <tr *ngFor="let area of Areas">
+                                                <td>{{area.Nombre_}}</td>
+                                                <td>{{area.Empresa.Nombre_}}</td>
                                                 <td>
                                                     <a style="color: rgb(228, 169, 21);" title="Modificar">
-                                                        <i class="nc-icon nc-ruler-pencil"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Finanzas</td>
-                                                <td>Mar-Autos</td>
-                                                <td>
-                                                    <a style="color: rgb(228, 169, 21);" title="Modificar">
-                                                        <i class="nc-icon nc-ruler-pencil"></i>
+                                                        <i class="nc-icon nc-ruler-pencil" (click)="AbrirModalModificarArea(area, contenido)"></i>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -86,3 +78,42 @@
         </div>
     </div>
 </div>
+
+<ng-template #contenido let-modal>
+    <div class="modal-header">
+        <h3 class="modal-title text-center">INFORMACIÓN DE AREA.</h3>
+        <button class="close btn btn-light" aria-label="close" type="button" (click)="modalngbootstrap.dismissAll()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <form>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <input type="text" class="form-control" id="Nombre_mod" aria-describedby="Nombre_mod"
+                            name="Nombre_mod" [(ngModel)]="Nombre_mod" 
+                            (keypress)="ValidarCaracteresAlfabeticosYMaxlength('Nombre_mod', $event)">
+                            <small id="Nombre_mod" class="form-text text-muted">Nuevo nombre del área</small>
+                    </div>
+                    <div class="form-group col-md-12" style="margin-top: 2%;">
+                        <select class="form-select" id="Optionempresa_mod" aria-label="Default select example"
+                            name="Optionempresa_mod" [(ngModel)]="Optionempresa_mod" >
+                            <option value="">* Sel. la empresa</option>
+                            <option *ngFor="let empresa of Empresas"
+                                value="{{empresa.Idempresa_}}">{{empresa.Nombre_}}
+                            </option>
+                        </select>
+                        <small class="form-text text-muted">Seleccione el empresa del área</small>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 3%;">
+                    <div class="form-group col-md-12">
+                        <button id="modificar" type="button" class="btn btn-success button-block" (click)="ValidarParaModificar()">Modificar información</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer"></div>
+</ng-template>
